@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 7587312628848923122}
   - component: {fileID: 617497085261886185}
   - component: {fileID: 7296986762395613207}
+  - component: {fileID: -2302300087603877015}
   - component: {fileID: 1807345311600954317}
   - component: {fileID: 5148503286485201905}
   - component: {fileID: 5253867423554555526}
@@ -181,6 +182,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-2302300087603877015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790709128944473927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04b28ee3610aa34c92812a1bec65d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  lifeTime: 30
+  damage: 0
 --- !u!135 &1807345311600954317
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -188,13 +204,13 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2790709128944473927}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 0debb753b7314304599b2a281d00390d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -227,8 +243,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 1
+  m_Constraints: 122
+  m_CollisionDetection: 2
 --- !u!95 &5253867423554555526
 Animator:
   serializedVersion: 5

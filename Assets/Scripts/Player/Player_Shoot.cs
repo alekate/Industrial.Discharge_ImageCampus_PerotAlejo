@@ -71,7 +71,7 @@ public class Player_Shoot : MonoBehaviour
     void Shoot()
     {
         // Disparo normal (clic izquierdo)
-        if (Input.GetMouseButton(0) && Time.time >= nextTimeToFireBullet && remainingBullets > 0 )
+        if (Input.GetMouseButton(0) && Time.time >= nextTimeToFireBullet && remainingBullets > 0)
         {
             Ray ray;
             RaycastHit hit;
@@ -87,33 +87,41 @@ public class Player_Shoot : MonoBehaviour
 
             uiController.FlashRedCrosshair();
 
-            if (Physics.Raycast(ray, out hit, shootRange))
+            if (Physics.Raycast(ray, out hit, shootRange, destroyableLayer))
             {
-                if (((1 << hit.collider.gameObject.layer) & destroyableLayer) != 0)
+                // Intentar hacer daño a EnemyHealth
+                EnemyHealth hitEnemy = hit.transform.GetComponent<EnemyHealth>();
+                if (hitEnemy != null)
                 {
-                    EnemyHealth hitEnemy = hit.transform.GetComponent<EnemyHealth>();
                     hitEnemy.TakeDamage(1);
+                }
+
+                // Intentar hacer daño a RepairBot
+                RepairBot repairBot = hit.transform.GetComponent<RepairBot>();
+                if (repairBot != null)
+                {
+                    repairBot.TakeDamage(1);
                 }
 
                 Instantiate(bulletImpact, hit.point, Quaternion.LookRotation(hit.normal));
             }
 
             remainingBullets--;
-
             nextTimeToFireBullet = Time.time + 1f / fireRateBullet;
         }
 
-        // Disparo Light Probe (clic derecho)
+        // Disparo de light probe (clic derecho)
         if (Input.GetMouseButtonDown(1) && Time.time >= nextTimeToFireLightProbe && remainingLightProbes > 0)
         {
-
             GameObject lightProbe = ObjectPool_PlayerShoot.instance.GetPooledObject();
-
 
             if (lightProbe != null)
             {
                 lightProbe.transform.position = shootOrigin.position;
                 lightProbe.SetActive(true);
+
+                LightProbeProjectile probeScript = lightProbe.GetComponent<LightProbeProjectile>();
+                probeScript.Initialize(shootOrigin.forward * 10f, lightProbeDuration); // 10f es la velocidad
 
                 remainingLightProbes--;
                 nextTimeToFireLightProbe = Time.time + 1f / fireRateLightProbe;
@@ -122,11 +130,8 @@ public class Player_Shoot : MonoBehaviour
                 {
                     lightProbeCounterText.gameObject.SetActive(true);
                 }
-
-                StartCoroutine(DeactivateAfterTime(lightProbe, lightProbeDuration));
             }
         }
-
     }
 
     private IEnumerator DeactivateAfterTime(GameObject obj, float duration)

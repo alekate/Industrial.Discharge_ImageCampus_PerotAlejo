@@ -22,6 +22,17 @@ public class UIController : MonoBehaviour
     public Image whiteFlashImage;
     public float flashDuration = 1f;
 
+    [SerializeField] private TextMeshProUGUI allEnemiesText;
+    public int totalEnemies;
+
+    [SerializeField] private SceneController sceneController;
+
+    [Header("Pickups")]
+    [SerializeField] private PickupCounter pickupCounterScript;
+    [SerializeField] private TextMeshProUGUI currentPickupText;
+    [SerializeField] private TextMeshProUGUI youWinText;
+    [SerializeField] private TextMeshProUGUI youLoseText;
+
     public void UpdateHealth(float current, float max)
     {
         healthText.text = $"HP: {current}/{max}";
@@ -32,15 +43,25 @@ public class UIController : MonoBehaviour
         SetDefaultCrosshair();
     }
 
+
     private void Update()
     {
         UpdateTimer();
+        UpdatePickupUI();
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        totalEnemies = enemies.Length;
+        allEnemiesText.text = $"Total Enemies: {totalEnemies.ToString()}";
     }
 
     public void FlashRedCrosshair()
     {
         StopAllCoroutines();
         StartCoroutine(FlashCoroutine());
+    }
+
+    public void UpdatePickupUI()
+    {
+        currentPickupText.text = $"Current parts: {pickupCounterScript.currentPickups.ToString()}";
     }
 
     private IEnumerator FlashCoroutine()
@@ -64,6 +85,16 @@ public class UIController : MonoBehaviour
         int seconds = Mathf.FloorToInt(elapsedTime % 60f);
 
         timerText.text = $"{hours:00}:{minutes:00}:{seconds:00}";
+    }
+
+    public void FinnishGameUI()
+    {
+        youWinText.gameObject.SetActive(true);
+    }
+
+    public void LoseGameUI()
+    {
+        youLoseText.gameObject.SetActive(true);
     }
 
     public void PlayWhiteFlash()

@@ -17,12 +17,12 @@ public class Player_CamaraChanger : MonoBehaviour
 
     [SerializeField] private LineRenderer lineRenderer;
 
+    private bool lineEnabled = true;
+
     // Start is called before the first frame update
     void Start()
     {
         thirdPerCam.SetActive(false);
-        lineRenderer.enabled = false;
-
     }
 
     // Update is called once per frame
@@ -39,9 +39,6 @@ public class Player_CamaraChanger : MonoBehaviour
 
                 crosshairText.gameObject.SetActive(true);
 
-                lineRenderer.enabled = false;
-
-
             }
 
             if (!isFirstPerson)
@@ -51,11 +48,22 @@ public class Player_CamaraChanger : MonoBehaviour
                 thirdPerCam.SetActive(true);
 
                 crosshairText.gameObject.SetActive(false);
+            }
+        }
 
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            lineEnabled = !lineEnabled;
+
+            if (lineEnabled)
+            {
                 lineRenderer.enabled = true;
-
             }
 
+            if (!lineEnabled)
+            {
+                lineRenderer.enabled = false;
+            }
         }
 
     }

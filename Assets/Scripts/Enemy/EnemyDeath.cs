@@ -6,6 +6,8 @@ public class EnemyDeath : MonoBehaviour
     public ParticleSystem enemyParticle;
     public GameObject enemyMesh;
 
+    public GameObject pickup;
+
     private void Awake()
     {
         enemyMesh.SetActive(true);
@@ -26,6 +28,8 @@ public class EnemyDeath : MonoBehaviour
 
             Destroy(ps.gameObject, ps.main.duration + 0.5f);
         }
+
+        Instantiate(pickup, transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(1f);
 

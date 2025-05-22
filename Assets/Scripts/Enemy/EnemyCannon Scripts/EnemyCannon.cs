@@ -8,12 +8,14 @@ public class EnemyCannon : MonoBehaviour
     public float detectionRadius = 10f;
     public Transform cannonDirection; //Mesh que gira para mirar el jugador 
     public float fireInterval = 2f;
-    public float projectileSpeed = 10f;
+    [SerializeField] private float projectileDuration = 3f;
+
 
     [SerializeField] private Transform player;
 
     private float fireTimer;
 
+    [SerializeField] bool requiersFSM = true;
     [SerializeField] private FSM_EnemyMovement fsm_EnemyMovement;
     private void Start()
     {
@@ -26,7 +28,10 @@ public class EnemyCannon : MonoBehaviour
 
         if (distance <= detectionRadius)
         {
-            fsm_EnemyMovement.currentState = FSM_EnemyMovement.State.Wait;
+            if (requiersFSM)
+            {
+                fsm_EnemyMovement.currentState = FSM_EnemyMovement.State.Wait;
+            }
 
             // El cañón mira al jugador
             Vector3 targetPos = new Vector3(player.position.x, player.position.y, player.position.z);
@@ -40,28 +45,22 @@ public class EnemyCannon : MonoBehaviour
                 fireTimer = 0f;
             }
         }
-        else
-        {
-            //fsm_EnemyMovement.currentState = FSM_EnemyMovement.State.Move;
-        }
     }
 
     void FireProjectile()
     {
         GameObject proj = ObjectPool_EnemyProjectile.instance.GetPooledObject();
-        if (proj != null)
+
+        proj.transform.position = cannonDirection.position;
+        proj.transform.rotation = cannonDirection.rotation;
+
+        EnemyProjectile script = proj.GetComponent<EnemyProjectile>();
+        if (script != null)
         {
-            proj.transform.position = cannonDirection.position;
-            proj.transform.rotation = cannonDirection.rotation;
-
-            Projectile script = proj.GetComponent<Projectile>();
-            if (script != null)
-            {
-                script.Init(cannonDirection.forward * projectileSpeed);
-            }
+            script.Initialize(cannonDirection.forward, projectileDuration);
         }
-
     }
+
 
     private void OnDrawGizmosSelected()
     {

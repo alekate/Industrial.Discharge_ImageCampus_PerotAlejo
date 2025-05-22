@@ -14,6 +14,7 @@ public class Player_Health : MonoBehaviour
     public Rigidbody rb;
 
     [SerializeField] private UIController uiController;
+    [SerializeField] private SceneController sceneController;
 
     private void Awake()
     {
@@ -33,20 +34,23 @@ public class Player_Health : MonoBehaviour
             isDead = true;
             Dead();
             currentHealth = 0;
+
+            sceneController.timeRemaining = 0;
+            sceneController.timerIsRunning = false;
+            uiController?.LoseGameUI();
+
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
-        if (isDead && Input.GetKey(KeyCode.Space))
+        if (isDead && Input.GetKeyDown(KeyCode.Space))
         {
-            RestartScene();
+            Time.timeScale = 1f;
+            sceneController.LoadGame();
         }
     }
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.CompareTag("Ground"))
-        {
-            TakeDamage(1);
-        }
-    }
+
 
     public void TakeDamage(float amount)
     {
@@ -64,6 +68,15 @@ public class Player_Health : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground") && !isInvulnerable)
+        {
+            TakeDamage(1);
+        }
+    }
+
+
     private IEnumerator InvulnerabilityCoroutine()
     {
         isInvulnerable = true;
@@ -78,10 +91,5 @@ public class Player_Health : MonoBehaviour
         GetComponent<Player_Movement>().enabled = false;
         GetComponent<Player_Rotation>().enabled = false;
         rb.useGravity = true;
-    }
-
-    private void RestartScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

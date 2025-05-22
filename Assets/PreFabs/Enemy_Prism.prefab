@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 1540250443698582739}
   - component: {fileID: 8676600624957020238}
   - component: {fileID: 3294993539310616368}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Mesh
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 820060585408671331}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4999962, y: -4.283178, z: 7.1286945}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -558,7 +558,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2517
+  m_VersionIndex: 2622
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -692,11 +692,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1313657367965747073}
+  - component: {fileID: 3292983015398438509}
   - component: {fileID: 5800593130620602278}
   - component: {fileID: 8444474373744848073}
   - component: {fileID: 8172944007811285044}
   - component: {fileID: 7431600396000058038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy_Prism
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -712,7 +713,7 @@ Transform:
   m_GameObject: {fileID: 2921548094451478789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.100893, y: 4.5000005, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -720,6 +721,25 @@ Transform:
   - {fileID: 9081297090120852656}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3292983015398438509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2921548094451478789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18765c395e0e6924e95f18fa103b9be6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 10
+  cannonDirection: {fileID: 2032023340452708381}
+  fireInterval: 2
+  projectileDuration: 3
+  player: {fileID: 0}
+  requiersFSM: 0
+  fsm_EnemyMovement: {fileID: 0}
 --- !u!114 &5800593130620602278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,6 +769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyParticle: {fileID: 2554669785890766242}
   enemyMesh: {fileID: 820060585408671331}
+  pickup: {fileID: 1630177313136965737, guid: 2ee20f21a559fe3439ee1bfa869cea56, type: 3}
 --- !u!114 &8172944007811285044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,9 +822,9 @@ GameObject:
   - component: {fileID: 9081297090120852656}
   - component: {fileID: 2554669785890766242}
   - component: {fileID: 6182698975177781592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyParticle System
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -817,7 +838,7 @@ Transform:
   m_GameObject: {fileID: 2992592192197859185}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0000020191073, y: 0.7071057, z: 0.7071079, w: 0.0000022426248}
-  m_LocalPosition: {x: -0.5, y: -4.291178, z: 7.149}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

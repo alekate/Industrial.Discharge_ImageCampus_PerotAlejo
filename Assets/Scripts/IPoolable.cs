@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public interface IPoolable
 {
-    void OnActivate();
-    void OnDeactivate();
+    void InitializePool();
+    GameObject GetPooledObject();
 }
-

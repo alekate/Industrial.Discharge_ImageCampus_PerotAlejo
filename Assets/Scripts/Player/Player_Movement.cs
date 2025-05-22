@@ -31,7 +31,7 @@ public class Player_Movement : MonoBehaviour
         {
             y = 1;
         }
-        else if (Input.GetKey(KeyCode.LeftControl))
+        else if (Input.GetKey(KeyCode.LeftShift))
         {
             y = -1; 
         }
